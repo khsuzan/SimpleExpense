@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.trackexpenses.databinding.ItemExpenselistBinding
 import com.example.trackexpenses.feature_expenselist.domain.ExpenseEntity
 
-class ExpenseListAdapter :
+class ExpenseListAdapter(val onItemClick:(expense:ExpenseEntity)->Unit) :
     ListAdapter<ExpenseEntity, ExpenseListAdapter.MyViewHolder>(DiffCallback()) {
 
 
@@ -29,6 +29,12 @@ class ExpenseListAdapter :
 
     inner class MyViewHolder(private val itemExpenseView: ItemExpenselistBinding) :
         RecyclerView.ViewHolder(itemExpenseView.root) {
+        init {
+            itemView.setOnClickListener {
+                val expenseItem = getItem(adapterPosition)
+                onItemClick(expenseItem)
+            }
+        }
         fun bind(item: ExpenseEntity) {
             itemExpenseView.itemExpenseListTitle.text = item.itemTitle
             itemExpenseView.itemExpenseListAmount.text = item.amount.toString()

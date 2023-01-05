@@ -2,7 +2,6 @@ package com.example.trackexpenses.feature_expenselist.presenter
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -25,7 +24,10 @@ class ExpenseList :
         val linearLayoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
-        val myAdapter = ExpenseListAdapter()
+        val myAdapter = ExpenseListAdapter{expense->
+            val action = ExpenseListDirections.actionGlobalAddExpenseDialog(expense);
+            findNavController().navigate(action)
+        }
 
         val divider = DividerItemDecoration(requireContext(), linearLayoutManager.orientation)
 
@@ -48,8 +50,8 @@ class ExpenseList :
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.expenseEvent.collect { event ->
                 when (event) {
-                    ExpenseViewModel.ExpenseListEvent.AddExpense -> {
-                        val action = ExpenseListDirections.actionGlobalAddExpenseDialog();
+                    is ExpenseViewModel.ExpenseListEvent.AddEditExpense -> {
+                        val action = ExpenseListDirections.actionGlobalAddExpenseDialog(null);
                         findNavController().navigate(action)
                     }
                 }

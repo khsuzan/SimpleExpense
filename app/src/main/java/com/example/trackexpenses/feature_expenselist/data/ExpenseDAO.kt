@@ -9,13 +9,13 @@ import kotlinx.coroutines.flow.Flow
 interface ExpenseDAO {
 
     @Insert
-    suspend fun insertExpense(expense: ExpenseEntity)
+    suspend fun insertExpense(expense: ExpenseEntity):Long
 
     @Delete
     suspend fun deleteExpense(expense: ExpenseEntity)
 
-    @Update
-    suspend fun updateExpense(expense: ExpenseEntity)
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun updateExpense(expense: ExpenseEntity):Int
 
     @Query("SELECT * FROM $EXPENSES_LISTS_TABLE")
     fun getExpenseList(): Flow<List<ExpenseEntity>>
