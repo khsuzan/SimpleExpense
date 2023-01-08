@@ -1,8 +1,8 @@
-package com.example.trackexpenses.feature_expenselist.data
+package com.example.trackexpenses.featureExpenselist.data
 
 import androidx.room.*
 import com.example.trackexpenses.db.ExpenseAppDb.Companion.EXPENSES_LISTS_TABLE
-import com.example.trackexpenses.feature_expenselist.domain.ExpenseEntity
+import com.example.trackexpenses.featureExpenselist.domain.ExpenseEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao

@@ -1,4 +1,4 @@
-package com.example.trackexpenses.feature_expenselist.presenter.components
+package com.example.trackexpenses.feature_expenselist.presenter.addedit_dialog
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -49,9 +49,9 @@ class AddEditExpenseViewModel @Inject constructor(
             return@launch
         }
         if (expense != null) {
-            updateExpense(ExpenseEntity(id = expense.id,itemTitle = expenseTitle, amount = expenseAmount.toInt(), createdAt = expense.createdAt))
+            updateExpense(ExpenseEntity(id = expense.id,itemTitle = expenseTitle, amount = expenseAmount.toDouble(), createdAt = expense.createdAt))
         } else {
-            addExpense(ExpenseEntity(itemTitle = expenseTitle, amount = expenseAmount.toInt()))
+            addExpense(ExpenseEntity(itemTitle = expenseTitle, amount = expenseAmount.toDouble()))
         }
 
     }

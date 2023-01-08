@@ -1,11 +1,10 @@
-package com.example.trackexpenses.feature_expenselist.presenter
+package com.example.trackexpenses.feature_expenselist.presenter.dashboard_list_container
 
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.trackexpenses.feature_expenselist.data.ExpenseDAO
 import com.example.trackexpenses.feature_expenselist.domain.ExpenseEntity
-import dagger.assisted.Assisted
+import com.example.trackexpenses.utils.presenter.ExpenseTimeUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -18,22 +17,22 @@ class ExpenseViewModel @Inject constructor(
 ) : ViewModel() {
 
 
-
-    private val _expenseEventChannel = Channel<ExpenseListEvent>()
+    private val _expenseEventChannel = Channel<ExpenseEvent>()
     val expenseEvent = _expenseEventChannel.receiveAsFlow();
 
-    val expenseFlow = expenseDAO.getExpenseList()
+    val expenseFlow = expenseDAO.getTodaysExpenseList(ExpenseTimeUtil.TODAY_START,ExpenseTimeUtil.TODAY_END)
 
     fun addExpenseClick() = viewModelScope.launch{
-        _expenseEventChannel.send(ExpenseListEvent.AddEditExpense(null))
+        _expenseEventChannel.send(ExpenseEvent.NavigateAddDialog(null))
     }
 
     fun editExpenseClick(item:ExpenseEntity) = viewModelScope.launch {
-        _expenseEventChannel.send(ExpenseListEvent.AddEditExpense(item))
+        _expenseEventChannel.send(ExpenseEvent.NavigateAddDialog(item))
     }
 
-    sealed class ExpenseListEvent {
-        data class AddEditExpense(val expense:ExpenseEntity?=null) : ExpenseListEvent()
+
+    sealed class ExpenseEvent {
+        data class NavigateAddDialog(val expense: ExpenseEntity?=null): ExpenseEvent()
     }
 
 }

@@ -1,4 +1,4 @@
-package com.example.trackexpenses.feature_expenselist.presenter.components
+package com.example.trackexpenses.feature_expenselist.presenter.addedit_dialog
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,8 +11,8 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.trackexpenses.databinding.FragmentAddExpenseDialogBinding
-import com.example.trackexpenses.feature_expenselist.presenter.components.AddEditExpenseViewModel.FieldType.EXPENSE_AMOUNT
-import com.example.trackexpenses.feature_expenselist.presenter.components.AddEditExpenseViewModel.FieldType.EXPENSE_TITLE
+import com.example.trackexpenses.feature_expenselist.presenter.addedit_dialog.AddEditExpenseViewModel.FieldType.EXPENSE_AMOUNT
+import com.example.trackexpenses.feature_expenselist.presenter.addedit_dialog.AddEditExpenseViewModel.FieldType.EXPENSE_TITLE
 import com.example.trackexpenses.utils.presenter.editableToString
 import dagger.hilt.android.AndroidEntryPoint
 
